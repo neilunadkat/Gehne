@@ -169,7 +169,7 @@
                   symbolName = "-[JewelryUIView mainView]"
                   moduleName = "Gehne"
                   urlString = "file:///Users/Nikhil/Desktop/Hackathon/Gehne/Gehne/JewelryUIView.h"
-                  timestampString = "413614251.394742"
+                  timestampString = "413630465.844156"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "17"
@@ -183,7 +183,7 @@
                   symbolName = "-[JewelryUIView setMainView:]"
                   moduleName = "Gehne"
                   urlString = "file:///Users/Nikhil/Desktop/Hackathon/Gehne/Gehne/JewelryUIView.h"
-                  timestampString = "413614251.394971"
+                  timestampString = "413630465.844333"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "17"
@@ -264,27 +264,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Gehne/MainViewController.m"
-            timestampString = "413571363.786176"
+            timestampString = "413629926.664824"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
-            landmarkName = "-viewDidLoad"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Gehne/MainViewController.m"
-            timestampString = "413575309.983971"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "139"
-            endingLineNumber = "139"
+            startingLineNumber = "163"
+            endingLineNumber = "163"
             landmarkName = "-getMainView:"
             landmarkType = "5">
          </BreakpointContent>
