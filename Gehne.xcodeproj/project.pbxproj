@@ -158,9 +158,8 @@
 				311F8C5018A5F32F00A3EF12 /* Images.xcassets */,
 				311F8C3C18A5F32F00A3EF12 /* Supporting Files */,
 			);
-			name = Gehne;
-			path = /Users/Nikhil/Desktop/Hackathon/Gehne/Gehne;
-			sourceTree = "<absolute>";
+			path = Gehne;
+			sourceTree = "<group>";
 		};
 		311F8C3C18A5F32F00A3EF12 /* Supporting Files */ = {
 			isa = PBXGroup;
@@ -200,8 +199,7 @@
 				311F8C7218A60B2500A3EF12 /* AppacitiveLayer.m */,
 			);
 			name = Appacitive;
-			path = /Users/Nikhil/Desktop/Hackathon/Gehne/Gehne;
-			sourceTree = "<absolute>";
+			sourceTree = "<group>";
 		};
 		311F8C7418A60B4500A3EF12 /* Model */ = {
 			isa = PBXGroup;
