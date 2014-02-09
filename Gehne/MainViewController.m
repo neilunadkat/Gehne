@@ -161,7 +161,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 -(UIView *)getMainView:(ItemInfo *) info{
     
     UIScrollView * scrollView = [[UIScrollView alloc]
-                                 initWithFrame:CGRectMake(0, 25, 320, self.view.frame.size.height)];
+                                 initWithFrame:CGRectMake(0, 20, 320, self.view.frame.size.height)];
     scrollView.layer.backgroundColor =[UIColor whiteColor].CGColor;
     
     UIFont * nameFont = [UIFont fontWithName:@"Helvetica Neue" size:14];
