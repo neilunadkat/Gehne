@@ -69,7 +69,6 @@
                 item.itemType = [object getPropertyWithKey:@"type"];
                 item.itemCode = [object getPropertyWithKey:@"itemcode"];
                 item.imgUrls = (NSArray*) [object getPropertyWithKey:@"images"];
-                
                 [itemsArray addObject:item];
             }
         }

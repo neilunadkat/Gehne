@@ -169,7 +169,7 @@
                   symbolName = "-[JewelryUIView mainView]"
                   moduleName = "Gehne"
                   urlString = "file:///Users/Nikhil/Desktop/Hackathon/Gehne/Gehne/JewelryUIView.h"
-                  timestampString = "413633774.836039"
+                  timestampString = "413636090.426182"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "17"
@@ -183,7 +183,7 @@
                   symbolName = "-[JewelryUIView setMainView:]"
                   moduleName = "Gehne"
                   urlString = "file:///Users/Nikhil/Desktop/Hackathon/Gehne/Gehne/JewelryUIView.h"
-                  timestampString = "413633774.836213"
+                  timestampString = "413636090.426393"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "17"
@@ -254,38 +254,6 @@
             startingLineNumber = "150"
             endingLineNumber = "150"
             landmarkName = "-imageAtIndex:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Gehne/MainViewController.m"
-            timestampString = "413571363.786176"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
-            landmarkName = "-viewDidLoad"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Gehne/MainViewController.m"
-            timestampString = "413575309.983971"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "139"
-            endingLineNumber = "139"
-            landmarkName = "-getMainView:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
