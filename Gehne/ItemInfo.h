@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <AppacitiveSDK.h>
 
-@interface ItemInfo : NSObject
+@interface ItemInfo : NSObject <NSCoding>
 
 @property NSString * name;
 @property NSString * short_Description;

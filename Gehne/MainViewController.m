@@ -42,8 +42,9 @@
     
     Data *dataInst = [[Data alloc] init];
     [dataInst getAllJewelryInfoWithSuccessHandler:^(NSArray *objects) {
+        NSLog(@"COUNT: %d",[objects count]);
         for(ItemInfo *item in objects)
-            NSLog(item.description);
+            NSLog(@"%@", item.description);
     }];
     
     UIButton * button = [[UIButton alloc] initWithFrame:CGRectMake(100, 100, 30, 21)];
