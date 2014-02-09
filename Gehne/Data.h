@@ -14,5 +14,6 @@
 
 - (void) registerUser:(NSString *) userName withPhone:(NSString *) phone;
 
-- (NSString *) getCatalogueViewUrl;
+-(NSMutableArray *) getAllJewelryInfo;
+
 @end

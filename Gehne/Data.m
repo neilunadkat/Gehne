@@ -37,8 +37,10 @@
     } callOnError:nil];
 }
 
-- (NSString *) getCatalogueViewUrl{
-
-    return @"";
+-(NSMutableArray *) getAllJewelryInfo{
+    NSMutableArray * array;
+    
+    return array;
 }
+
 @end
