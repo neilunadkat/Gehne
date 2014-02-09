@@ -10,6 +10,7 @@
 #import "AppacitiveLayer.h"
 #import <AppacitiveSDK.h>
 #import "ItemInfo.h"
+#import "AFNetworking.h"
 
 @implementation Data
 
@@ -69,7 +70,15 @@
                 item.itemType = [object getPropertyWithKey:@"type"];
                 item.itemCode = [object getPropertyWithKey:@"itemcode"];
                 item.imgUrls = (NSArray*) [object getPropertyWithKey:@"images"];
-                
+                AFHTTPRequestOperation *imgDownloadOperation = [[AFHTTPRequestOperation alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[item.imgUrls firstObject]]]];
+                [imgDownloadOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+//                    NSLog(@"Response: %@", responseObject);
+                    item.image = responseObject;
+                    
+                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    NSLog(@"Image error: %@", error);
+                }];
+                [imgDownloadOperation start];
                 [itemsArray addObject:item];
             }
         }
