@@ -9,6 +9,7 @@
 #import "MainViewController.h"
 #import "JewelryUIView.h"
 #import "Data.h"
+#import "AFNetworking.h"
 
 
 #define UIColorFromRGB(rgbValue) [UIColor \
@@ -27,7 +28,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @property JewelryUIView * currentView;
 
 @property UIScrollView* mainScrollView;
-@property NSMutableArray * items;
+@property NSArray * items;
 @end
 
 @implementation MainViewController
@@ -46,43 +47,40 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    //    UIButton * button = [[UIButton alloc] initWithFrame:CGRectMake(100, 100, 30, 21)];
-    //    [button addTarget:self action:@selector(press:) forControlEvents:UIControlEventAllTouchEvents];
-    //    [button setTitle:@"Press" forState:UIControlStateNormal];
     UIView * coverView = [[UIView alloc] initWithFrame:self.view.frame];
     Data *dataInst = [[Data alloc] init];
     [dataInst getAllJewelryInfoWithSuccessHandler:^(NSArray *objects) {
         NSLog(@"COUNT: %d",[objects count]);
-        
+        self.items = objects;
         _views = [self getAllViewsForItems:objects];
-//        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
             for (int i =0; i < _views.count ; i ++) {
                 [coverView addSubview:[_views objectAtIndex:i] ];
             }
             coverView.frame = CGRectMake(coverView.frame.origin.x, 20, 320 * _views.count, self.view.frame.size.height);
             [_mainScrollView setContentSize:CGSizeMake(320 * _views.count, self.view.frame.size.height)];
             [_mainScrollView addSubview:coverView];
-
-//        });
-        //        for(ItemInfo *item in objects)
-//            NSLog(@"%@", item.description);
+            [_mainScrollView setNeedsDisplay];
+        });
+       
     }];
-    _items = [[NSMutableArray alloc] init];
-    
-    ItemInfo * info = [[ItemInfo alloc] init];
-    info.name = @"BEJEWELLED LOTUS DIAMOND EARRINGS";
-    info.image = [UIImage imageNamed:@"necklace.jpg"];
-    info.long_Description = @"Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
-    info.short_Description = @"Sterling Silver Bracelet with American diamonds & green colored stone";
-    info.price = @"1.7 Lakhs";
-    [_items insertObject:info atIndex:0];
-    info = [[ItemInfo alloc] init];
-    info.name = @"ELEGANT GOLD HUGGIES";
-    info.image = [UIImage imageNamed:@"ring.jpg"];
-    info.long_Description = @"dasdasd";
-    info.short_Description = @"Sterling Silver Pendant Set with American diamonds & Blue stones";
-    info.price = @"1 Lakh";
-    [_items insertObject:info atIndex:1];
+
+//    _items = [[NSMutableArray alloc] init];
+//    
+//    ItemInfo * info = [[ItemInfo alloc] init];
+//    info.name = @"BEJEWELLED LOTUS DIAMOND EARRINGS";
+//    info.image = [UIImage imageNamed:@"necklace.jpg"];
+//    info.long_Description = @"Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+//    info.short_Description = @"Sterling Silver Bracelet with American diamonds & green colored stone";
+//    info.price = @"1.7 Lakhs";
+//    [_items insertObject:info atIndex:0];
+//    info = [[ItemInfo alloc] init];
+//    info.name = @"ELEGANT GOLD HUGGIES";
+//    info.image = [UIImage imageNamed:@"ring.jpg"];
+//    info.long_Description = @"dasdasd";
+//    info.short_Description = @"Sterling Silver Pendant Set with American diamonds & Blue stones";
+//    info.price = @"1 Lakh";
+//    [_items insertObject:info atIndex:1];
     
     
 //    _views = [self getAllViewsForItems:_items];
@@ -114,7 +112,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     NSMutableArray * array = [[NSMutableArray alloc] init];
     
     for (int i =0; i < items.count; i ++) {
-        ((ItemInfo *)[items objectAtIndex:i]).image = [UIImage imageNamed:@"ring.jpg"];
+//        ((ItemInfo *)[items objectAtIndex:i]).image = [UIImage imageNamed:@"ring.jpg"];
         [array insertObject:[self getViewForItem:[items objectAtIndex:i] atPosition:i] atIndex:i] ;
     }
     
@@ -125,7 +123,26 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     
     UIView * view = [[UIView alloc] initWithFrame:CGRectMake(320 * pos, 0, 320, self.view.frame.size.height)];
     
-    UIImageView * imageView = [[UIImageView alloc] initWithImage:info.image];
+    UIImageView * imageView = [[UIImageView alloc] init];
+    
+    if(info.image == nil){
+        AFHTTPRequestOperation *imgDownloadOperation = [[AFHTTPRequestOperation alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[info.imgUrls firstObject]]]];
+        [imgDownloadOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            //                    NSLog(@"Response: %@", responseObject);
+            
+            UIImage * img = [UIImage imageWithData:responseObject];
+            info.image = img;
+//            imageView.image = info.image;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [imageView setImage:img];
+            });
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Image error: %@", error);
+        }];
+        [imgDownloadOperation start];
+    }
     imageView.frame = CGRectMake(7, 95, 306, 375);
     
     UILabel *name = [[UILabel alloc] initWithFrame:CGRectMake(12, 0, 305, 22)];
@@ -186,11 +203,29 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [back.titleLabel setFont:[UIFont fontWithName:@"Helvetica Neue" size:15]];
     [back addTarget:self action:@selector(flip:) forControlEvents:UIControlEventAllEvents];
     
-    UIImageView * imageView = [[UIImageView alloc] initWithImage:info.image];
+    UIImageView * imageView = [[UIImageView alloc] init];
     
     
     [imageView setFrame:CGRectMake(60, 75, 200, 200)];
     
+    if(info.image == nil){
+        AFHTTPRequestOperation *imgDownloadOperation = [[AFHTTPRequestOperation alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[info.imgUrls firstObject]]]];
+        [imgDownloadOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            //                    NSLog(@"Response: %@", responseObject);
+             UIImage * img = [UIImage imageWithData:responseObject];
+            info.image = img;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                imageView.image = img;
+            });
+            
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Image error: %@", error);
+        }];
+        [imgDownloadOperation start];
+    }
+    else{
+        [imageView setImage:info.image];
+    }
     UIButton * button = [[UIButton alloc] initWithFrame:CGRectMake(250, 273, 70, 30)];
     [button setTitle:@"Call Us" forState:UIControlStateNormal];
     [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -206,6 +241,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [decr setFont:font];
     [decr setText:@"Description"];
     UITextView * description = [[UITextView alloc] initWithFrame:CGRectMake(14, 32, 274, 32 + frame.size.height)];
+    [description setEditable:NO];
     description.text = info.long_Description;
     description.scrollEnabled = NO;
     
@@ -213,7 +249,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [price_Label setFont:font];
     [price_Label setText:@"Price"];
     
-    UILabel *priceValue = [[UILabel alloc] initWithFrame:CGRectMake(20, price_Label.frame.origin.y  + 25, 70, 21)];
+    UILabel *priceValue = [[UILabel alloc] initWithFrame:CGRectMake(20, price_Label.frame.origin.y  + 25, 120, 21)];
     [priceValue setText:info.price];
     [priceValue setFont:[UIFont fontWithName:@"Helvetica Neue" size:15]];
     
