@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AppacitiveSDK.h>
 
 @interface ItemInfo : NSObject
 
@@ -14,7 +15,12 @@
 @property NSString * short_Description;
 @property NSString * long_Description;
 @property NSString * itemCode;
+@property NSString *itemType;
+@property NSArray *imgUrls;
 @property UIImage * image;
 @property BOOL showPrice;
 @property NSString * price;
+
+- (NSString*) description;
+
 @end

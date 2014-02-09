@@ -1,0 +1,10 @@
+PODS:
+  - Appacitive-iOS-SDK (2.0.6)
+
+DEPENDENCIES:
+  - Appacitive-iOS-SDK (~> 2.0.6)
+
+SPEC CHECKSUMS:
+  Appacitive-iOS-SDK: 0da80663f52c47a14679f128b1d609727f56687a
+
+COCOAPODS: 0.29.0

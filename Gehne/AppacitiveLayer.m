@@ -78,6 +78,10 @@ static NSString * const kAppacitiveAPIKeyName = @"Appacitive-ApiKey";
     return @"";
 }
 
+
+
+
+
 -(void) connectUser:(NSString *)userId withDevice:(NSString *)deviceId
       callOnSuccess: (void (^)(NSString *,NSString *)) successHandler
         callOnError:(void (^)(NSError *)) errorHandler

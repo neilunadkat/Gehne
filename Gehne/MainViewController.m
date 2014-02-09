@@ -8,6 +8,7 @@
 
 #import "MainViewController.h"
 #import "JewelryUIView.h"
+#import "Data.h"
 
 @interface MainViewController ()
 
@@ -38,7 +39,13 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-
+    
+    Data *dataInst = [[Data alloc] init];
+    [dataInst getAllJewelryInfoWithSuccessHandler:^(NSArray *objects) {
+        for(ItemInfo *item in objects)
+            NSLog(item.description);
+    }];
+    
     UIButton * button = [[UIButton alloc] initWithFrame:CGRectMake(100, 100, 30, 21)];
     [button addTarget:self action:@selector(press:) forControlEvents:UIControlEventAllTouchEvents];
     [button setTitle:@"Press" forState:UIControlStateNormal];

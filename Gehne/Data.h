@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <APResponseBlocks.h>
 
 @interface Data : NSObject
 
@@ -14,6 +15,6 @@
 
 - (void) registerUser:(NSString *) userName withPhone:(NSString *) phone;
 
--(NSMutableArray *) getAllJewelryInfo;
+-(void) getAllJewelryInfoWithSuccessHandler:(APObjectsSuccessBlock)successBlock;
 
 @end
