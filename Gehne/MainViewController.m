@@ -17,7 +17,7 @@ colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 \
 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
-@interface MainViewController ()
+@interface MainViewController () <UIScrollViewDelegate>
 
 - (IBAction)flip:(id)sender;
 
@@ -34,6 +34,30 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 @implementation MainViewController
 
 
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+////    NSLog(@"Content offset x :%f y:%f",scrollView.contentOffset.x,scrollView.contentOffset.y);
+//}
+
+//- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+//    NSLog(@"Deacelrated Content offset x :%f y:%f",scrollView.contentOffset.x,scrollView.contentOffset.y);
+//            [self setTheContentOfMainScrollViewWithCurrentContentOffSet:scrollView.contentOffset];
+//}
+//
+//- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+//     NSLog(@"Stopped Content offset x :%f y:%f",scrollView.contentOffset.x,scrollView.contentOffset.y);
+//    if(decelerate == NO){
+//        [self setTheContentOfMainScrollViewWithCurrentContentOffSet:scrollView.contentOffset];
+//    }
+//}
+
+- (void)  setTheContentOfMainScrollViewWithCurrentContentOffSet:(CGPoint) contentOffSet{
+    
+    int t= (int) contentOffSet.x;
+    
+//    float x = contentOffSet.x % 160.0f;
+    
+    [_mainScrollView setContentOffset:CGPointMake(t * 320, contentOffSet.y) animated:YES];
+}
 -(void) viewWillAppear:(BOOL)animated{
     [super viewWillAppear:  animated];
     
@@ -65,40 +89,16 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
        
     }];
 
-//    _items = [[NSMutableArray alloc] init];
-//    
-//    ItemInfo * info = [[ItemInfo alloc] init];
-//    info.name = @"BEJEWELLED LOTUS DIAMOND EARRINGS";
-//    info.image = [UIImage imageNamed:@"necklace.jpg"];
-//    info.long_Description = @"Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
-//    info.short_Description = @"Sterling Silver Bracelet with American diamonds & green colored stone";
-//    info.price = @"1.7 Lakhs";
-//    [_items insertObject:info atIndex:0];
-//    info = [[ItemInfo alloc] init];
-//    info.name = @"ELEGANT GOLD HUGGIES";
-//    info.image = [UIImage imageNamed:@"ring.jpg"];
-//    info.long_Description = @"dasdasd";
-//    info.short_Description = @"Sterling Silver Pendant Set with American diamonds & Blue stones";
-//    info.price = @"1 Lakh";
-//    [_items insertObject:info atIndex:1];
-    
-    
-//    _views = [self getAllViewsForItems:_items];
+
     _mainScrollView = [[UIScrollView alloc]
                        initWithFrame:CGRectMake(0, 20, 320, self.view.frame.size.height)];
     _mainScrollView.layer.backgroundColor = [UIColor whiteColor].CGColor;
     
+    _mainScrollView.delegate = self;
+    
+    _mainScrollView.pagingEnabled = YES;
     coverView.layer.backgroundColor = [UIColor clearColor].CGColor;
-    
-//    for (int i =0; i < _views.count ; i ++) {
-//        [coverView addSubview:[_views objectAtIndex:i] ];
-//    }
-    
-    
-    
-   
-    
-    
+        
     [self.view addSubview: _mainScrollView];
     UIView * statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
     statusBarView.layer.backgroundColor = [[UIColor alloc] initWithWhite:0.8 alpha:0.5].CGColor;
