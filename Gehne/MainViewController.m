@@ -70,20 +70,21 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    
-    UIView * coverView = [[UIView alloc] initWithFrame:self.view.frame];
+   
     Data *dataInst = [[Data alloc] init];
     [dataInst getAllJewelryInfoWithSuccessHandler:^(NSArray *objects) {
-        NSLog(@"COUNT: %d",[objects count]);
+
         self.items = objects;
-        _views = [self getAllViewsForItems:objects];
+        
         dispatch_async(dispatch_get_main_queue(), ^{
+            _views = [self getAllViewsForItems:objects];
             for (int i =0; i < _views.count ; i ++) {
-                [coverView addSubview:[_views objectAtIndex:i] ];
+                [_mainScrollView addSubview:[_views objectAtIndex:i] ];
             }
-            coverView.frame = CGRectMake(coverView.frame.origin.x, 20, 320 * _views.count, self.view.frame.size.height);
+            if([NSThread isMainThread] == YES)
+                NSLog(@"Main Thread");
             [_mainScrollView setContentSize:CGSizeMake(320 * _views.count, self.view.frame.size.height)];
-            [_mainScrollView addSubview:coverView];
+            
             [_mainScrollView setNeedsDisplay];
         });
        
@@ -94,15 +95,12 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
                        initWithFrame:CGRectMake(0, 20, 320, self.view.frame.size.height)];
     _mainScrollView.layer.backgroundColor = [UIColor whiteColor].CGColor;
     
-    _mainScrollView.delegate = self;
-    
     _mainScrollView.pagingEnabled = YES;
-    coverView.layer.backgroundColor = [UIColor clearColor].CGColor;
-        
+   
     [self.view addSubview: _mainScrollView];
-    UIView * statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
-    statusBarView.layer.backgroundColor = [[UIColor alloc] initWithWhite:0.8 alpha:0.5].CGColor;
-    [self.view addSubview:statusBarView];
+//    UIView * statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 20)];
+//    statusBarView.layer.backgroundColor = [[UIColor alloc] initWithWhite:0.8 alpha:0.5].CGColor;
+//    [self.view addSubview:statusBarView];
     
     
 }
@@ -296,12 +294,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 }
 
 - (IBAction)flip:(id)sender {
-    //
-    //    [UIView transitionFromView:self.view.window toView:_currentView.detailsView duration:0.65f options:UIViewAnimationOptionTransitionFlipFromLeft completion:^(BOOL finished) {
-    //        _detailView.hidden = NO;
-    //        _mainView.hidden = YES;
-    //    }];
-    UIButton * btn = (UIButton *) sender;
+        UIButton * btn = (UIButton *) sender;
     
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:1.0];
@@ -312,13 +305,13 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         [_mainScrollView removeFromSuperview];
         _mainView =[self getMainView:[self.items objectAtIndex:btn.tag]];
         [self.view addSubview:_mainView];
-        //        [self.view sendSubviewToBack:_mainScrollView];
+        [self.view sendSubviewToBack:_mainScrollView];
     }
     else
     {
         [_mainView removeFromSuperview];
         [self.view addSubview:_mainScrollView];
-        //        [self.view sendSubviewToBack:_mainView];
+        [self.view sendSubviewToBack:_mainView];
     }
     
     [UIView commitAnimations];
